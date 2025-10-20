@@ -38,7 +38,11 @@ public class MainClass {
             String cur = pc.getAccStr();
             System.out.print(cur);
             String text = scanner.nextLine();
-            String[] command = text.split(" ");
+            String[] command = text.trim().split("\\s+");
+//            for (int i = 0; i < command.length; i++){
+//                command[i] = command[i].trim();
+//                System.out.println(command[i]);
+//            }
 
             if (command[0].equals("exit") && cur.equals("/>")) {
                 break;
@@ -86,6 +90,7 @@ public class MainClass {
 
                 case "exit":
                     pc.setAcc(null);
+                    bank = null;
                     System.out.println("Возврат в личный кабинет");
                     break;
 
@@ -203,8 +208,8 @@ public class MainClass {
             System.out.println("║ exit            - выход из программы  ║");
             System.out.println("║ help             - эта справка        ║");
             System.out.println("║───────────────────────────────────────║");
-            System.out.println("║ Флаги для cd/find: -name, -id, -kpp,  ║");
-            System.out.println("║                   -bik                ║");
+            System.out.println("║ Вместо флвга для cd/find: -name,      ║");
+            System.out.println("║                  -id, -kpp, -bik      ║");
             System.out.println("║ *find ищет подстроки в строке         ║");
             System.out.println("║ *cd по умолчанию flag==\"-name\"        ║");
         } else {
@@ -228,6 +233,7 @@ public class MainClass {
         if (file.exists()) {
             try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(DATA_FILE))) {
                 pc = (PersonCabinet) ois.readObject();
+                pc.setNullAcc();
                 System.out.println("Данные загружены из файла: " + DATA_FILE);
             } catch (IOException | ClassNotFoundException e) {
                 System.out.println("Ошибка загрузки данных: " + e.getMessage());

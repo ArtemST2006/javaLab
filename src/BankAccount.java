@@ -64,6 +64,7 @@ class PersonCabinet implements Serializable {
         return  current_acc;
     }
     public void setAcc(BankAccount ba){ current_acc = ba;}
+    public void setNullAcc() { current_acc = null; }
 }
 
 
